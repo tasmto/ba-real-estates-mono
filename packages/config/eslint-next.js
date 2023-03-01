@@ -51,6 +51,10 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/jsx-props-no-spreading': 'off',
 
+    '@typescript-eslint/no-unsafe-call': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+
     'react/display-name': 'off',
 
     'import/no-extraneous-dependencies': [

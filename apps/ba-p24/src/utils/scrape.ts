@@ -1,11 +1,10 @@
-import { ReferenceType } from '@/constants/index';
-import { RespondToRequest } from '@/utils/api';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { type ReferenceType } from "@/constants/index";
+import { type NextApiRequest, type NextApiResponse } from "next";
 
 export const scrapeHTML = async (url: string) => {
   try {
-    if (!url) throw Error('No url provided');
-    if (!url.includes('https://')) throw new Error('No https url provided');
+    if (!url) throw Error("No url provided");
+    if (!url.includes("https://")) throw new Error("No https url provided");
     const req = await fetch(url);
     const data = await req.text();
     return data;
@@ -16,7 +15,7 @@ export const scrapeHTML = async (url: string) => {
 
 export type ScrapeSchemaType = {
   selector: string;
-  type: 'text' | 'number' | 'image' | 'images' | 'boolean';
+  type: "text" | "number" | "image" | "images" | "boolean";
   required?: boolean;
   array?: boolean;
   defaultValue: number | boolean | string | [];
@@ -34,88 +33,85 @@ export const organizeScrapedData = (
     defaultValue,
   }: ScrapeSchemaType,
   dom: any,
-  document: Document,
-  req: NextApiRequest,
-  res: NextApiResponse
+  document: Document
 ) => {
-  if (type === 'text') {
+  if (type === "text") {
     const text = !array
       ? document.querySelector(selector)?.textContent?.trim()
       : Array.from(document.querySelectorAll(selector))?.map((item) =>
           item?.textContent?.trim()
         );
-    if (required && text.length < 1)
-      return RespondToRequest(
-        res,
-        500,
-        `unable to parse required field ${selector} (value returned as ${text})`
+    if (required && (!text || text?.length <= 0))
+      return new Error(
+        `unable to parse required field ${selector} (value returned as ${
+          text?.toString() || "unknown"
+        })`
       );
-    return text ?? defaultValue ?? '';
+    return text ?? defaultValue ?? "";
   }
   //
-  else if (type === 'number') {
+  else if (type === "number") {
     const number = !array
       ? Number(
           document
             .querySelector(selector)
             ?.textContent?.trim()
-            .replaceAll(' ', '')
-            .replaceAll(/\D+/g, '')
+            .replaceAll(" ", "")
+            .replaceAll(/\D+/g, "")
         )
       : Array.from(document.querySelectorAll(selector))?.map((item) =>
-          item?.textContent?.trim().replaceAll(' ', '').replaceAll(/\D+/g, '')
+          item?.textContent?.trim().replaceAll(" ", "").replaceAll(/\D+/g, "")
         );
     if (
       (required && !number) ||
-      (required && typeof number === 'object' && number?.length < 1)
+      (required && typeof number === "object" && number?.length < 1)
     )
-      return RespondToRequest(
-        res,
-        500,
-        `unable to parse required field ${selector} (value returned as ${number}).`
+      throw new Error(
+        `unable to parse required field ${selector} (value returned as ${number.toString()}).`
       );
-    return typeof number === 'number' && !Number.isNaN(number)
+    return typeof number === "number" && !Number.isNaN(number)
       ? number
       : defaultValue;
   }
   //
-  else if (type === 'boolean') {
+  else if (type === "boolean") {
     const elementPresent = document.querySelector(selector) ? true : false;
     return elementPresent ?? defaultValue;
   }
   //
-  else if (type === 'image') {
+  else if (type === "image") {
     let imageSrc = document
       .querySelector(selector)
-      ?.getAttribute('lazy-src')
+      ?.getAttribute("lazy-src")
       ?.trim();
     if (required && !imageSrc)
-      RespondToRequest(
-        res,
-        500,
-        `unable to parse required field ${selector} (value returned as ${imageSrc}).`
+      throw new Error(
+        `unable to parse required field ${selector} (value returned as ${
+          imageSrc || "unknown"
+        }).`
       );
-    imageSrc = imageSrc.split('Crop')[0];
+    imageSrc = imageSrc?.split("Crop")[0];
     return imageSrc ?? defaultValue;
   }
   //
-  else if (type === 'images') {
+  else if (type === "images") {
     let gallerySrc: Array<any> | NodeListOf<any> =
       document.querySelectorAll(selector);
 
     if ((required && !gallerySrc) || (gallerySrc.length === 0 && required))
-      RespondToRequest(
-        res,
-        500,
-        `unable to parse required field ${selector} (value returned as ${gallerySrc}).`
+      throw new Error(
+        `unable to parse required field ${selector} (value returned as ${Array.from(
+          gallerySrc
+        ).toString()}).`
       );
     gallerySrc = Array.from(gallerySrc)?.map(
-      (img) => img?.getAttribute('lazy-src')?.trim().split('Crop')[0]
+      (img) => img?.getAttribute("lazy-src")?.trim().split("Crop")[0]
     );
     return gallerySrc ?? defaultValue ?? [];
   }
   //
   else {
-    RespondToRequest(res, 500, `unable to parse type ${type} of ${selector}.`);
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    throw new Error(`unable to parse type ${type} of ${selector}.`);
   }
 };
