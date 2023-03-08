@@ -26,3 +26,5 @@ export const ClientOnlyCollectionsMap: FunctionComponent<CollectionsMapProps> = 
 
     return Client ? <Client {...props} /> : null;
 }
+
+export default ClientOnlyCollectionsMap

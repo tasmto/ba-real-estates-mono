@@ -10,3 +10,35 @@
     @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
   }
 }
+
+.animate-button-loading {
+  background: white;
+  background-clip: padding-box;
+  border: solid 2px transparent;
+  color: rgb(151, 151, 151);
+}
+
+.animate-button-loading:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: linear-gradient(to right, rgb(190, 190, 190), rgb(214, 214, 214));
+  background-size: 400%;
+  background-position: 0%;
+  animation: border-loading 1s ease-in-out alternate infinite;
+}
+
+@keyframes border-loading {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}

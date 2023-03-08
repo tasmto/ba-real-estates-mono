@@ -1,4 +1,6 @@
 // @ts-check
+// @ts-expect-error: no types
+import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -7,12 +9,12 @@
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
 
 /** @type {import("next").NextConfig} */
-const config = {
+const config = new PrismaPlugin({
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: process.env.NODE_ENV !== "production",
   },
-
+  // transpilePackages: ["@ba/prisma"],
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
    * must comment the below `i18n` config out.
@@ -23,5 +25,5 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-};
+});
 export default config;

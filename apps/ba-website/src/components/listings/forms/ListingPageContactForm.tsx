@@ -44,7 +44,7 @@ const ListingPageContactForm = ({ property }: Props) => {
                     method: 'POST',
                     body: JSON.stringify({
                         ...data,
-                        listingLink: `barealestates.co.za/listings/${property.slug?.current ?? ''
+                        listingLink: `barealestates.co.za/listing/${property.slug?.current ?? ''
                             }`,
                         agents: property.agents
                             .map((agent) => agent.email || '')

@@ -9,6 +9,7 @@ export const useFetchPropertyCategories = async <Type>(
   const allPropertyCategoriesQuery = groq`*[_type =="propertyCategory" ${
     conditions ? `&& ${conditions}` : ''
   }]{..., ${dataFilters && dataFilters}}`;
+
   const allPropertyCategories: Type[] = await client.fetch(
     allPropertyCategoriesQuery
   );

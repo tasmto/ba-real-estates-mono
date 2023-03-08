@@ -321,14 +321,14 @@ export interface Property extends SanityDocument {
   externalMedia?: Array<SanityKeyed<string>>;
 
   /**
-   * Mandate Start — `date`
+   * Mandate Start — `datetime`
    *
    *
    */
   mandateStart?: string;
 
   /**
-   * Mandate End — `date`
+   * Mandate End — `datetime`
    *
    *
    */

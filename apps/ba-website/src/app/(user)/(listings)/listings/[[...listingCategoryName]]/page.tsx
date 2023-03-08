@@ -9,11 +9,19 @@ import {
 
 import Wrapper from './(components)/Wrapper';
 
-type Props = {};
+type Props = { params: { listingCategoryName: string[] }, searchParams?: { [key: string]: string | string[] | undefined }; };
 
-const Page = async (props: Props) => {
+const Page = async ({ params, searchParams }: Props) => {
+
+  const categoriesFromUrl = searchParams?.category;
   const properties = await useFetchListings<PropertyWithLocation>(
-    undefined,
+    [
+      categoriesFromUrl && categoriesFromUrl.length > 0
+        ? `category->slug.current in  [${Array.from(categoriesFromUrl).map(
+          (cat) => `"${cat?.trim()}"`
+        )}]`
+        : null,
+    ],
     `"location": location -> { location, name }`,
     ' | order(_createdAt asc)'
   );

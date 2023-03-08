@@ -152,13 +152,13 @@ const HomePage = async (props: Props) => {
               defaultTab={1}
             />
           )}
-          <button
+          <Link href="/listings"
             type='button'
             className='mx-auto mt-10 flex items-center gap-2 rounded-lg bg-accent-200 px-8 py-4 font-medium text-primary-800 hover:bg-accent-300 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400'
           >
             <span>Explore all Listings</span>
             <HiArrowRight />
-          </button>
+          </Link>
         </div>
       </div>
       <div className='relative  overflow-hidden pt-16 pb-32'>

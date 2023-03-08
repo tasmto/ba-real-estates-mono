@@ -1,16 +1,17 @@
 "use client"
-import { Fragment, useState } from 'react'
-
 import clsx from 'clsx'
-import { atom, useAtom } from 'jotai'
-import CategorySelectMenu from '@/components/listings/filters/CategorySelectMenu'
 import { PropertyCategory } from 'types'
+import { PropertyWithLocation } from 'typings'
+
+import CategorySelectMenu from '@/components/listings/filters/CategorySelectMenu'
+import PriceFilterDropDown from '@/components/listings/filters/PriceFilterDropDown'
 import SelectedAreaBadge from '@/components/listings/filters/SelectedAreaBadge'
+import SortByMenu from '@/components/listings/filters/SortByMenu'
 
 
+interface Props { className?: string, categories: PropertyCategory[], listings: PropertyWithLocation[], nonFilteredListings: PropertyWithLocation[] }
 
-
-const ListingsFilters = ({ className, categories }: { className?: string, categories: PropertyCategory[] }) => {
+const ListingsFilters = ({ className, categories, listings, nonFilteredListings }: Props) => {
 
 
     return (
@@ -18,6 +19,8 @@ const ListingsFilters = ({ className, categories }: { className?: string, catego
 
             <section aria-labelledby="filter-heading" className='pb-2 flex gap-2 overflow-x-auto items-center'>
                 <CategorySelectMenu categories={categories} />
+                <PriceFilterDropDown listings={listings} nonFilteredListings={nonFilteredListings} />
+                <SortByMenu />
                 <SelectedAreaBadge />
             </section>
         </div>

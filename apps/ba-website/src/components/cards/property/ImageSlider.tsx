@@ -1,23 +1,22 @@
 'use client';
 
-import React, { LegacyRef, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import clsx from 'clsx';
 import Image from 'next/image';
+import { Autoplay, Pagination } from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Property } from 'types';
 
+import { useIsMobile } from '@/hooks/useIsMobile';
 import urlFor from '@/lib/sanity.helpers';
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // Import Swiper styles
 import './propertycard.css';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Pagination, Autoplay } from 'swiper';
-import { Property } from 'types';
-import clsx from 'clsx';
-import { useIsMobile } from '@/hooks/useIsMobile';
-import { HiArrowLeftCircle, HiArrowRightCircle } from 'react-icons/hi2';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 type Props = {
     images: Property['gallery'];
@@ -38,7 +37,7 @@ const PropertyCardImageSlider = ({
         return (
             <Image
                 className={clsx([
-                    'property-card--image h-56 w-full bg-gray-200 object-cover md:h-64',
+                    'property-card--image h-56 w-full bg-gray-200 object-cover',
                     className,
                 ])}
                 id='property-card'
@@ -56,7 +55,7 @@ const PropertyCardImageSlider = ({
     return (
         <div
             className={clsx([
-                'relative h-56 w-full bg-gray-200 object-cover md:h-64',
+                'relative h-56 w-full bg-gray-200 object-cover md:h-56',
                 className,
             ])}
             onMouseEnter={() => setIsHovering(true)}

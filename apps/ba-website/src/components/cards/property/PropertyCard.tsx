@@ -23,7 +23,7 @@ const PropertyCard: React.FC<PropertyWithLocation & { className?: string }> = ({
 
     return (
         <Link
-            href={`listings/${slug?.current || ''}`}
+            href={`/listing/${slug?.current || ''}`}
             className={clsx('flex h-full flex-col overflow-hidden rounded-xl border border-slate-200', className)}
             onClick={e => {
                 if (e.currentTarget.closest('.property-card--image')) { e.stopPropagation(); e.preventDefault() }
