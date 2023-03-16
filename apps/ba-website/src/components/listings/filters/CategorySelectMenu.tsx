@@ -19,10 +19,10 @@ const CategorySelectMenu = ({ categories }: Props) => {
 
     if (!categories || categories.length <= 0) return null;
     return (
-        <Popover>
+        <Popover className='relative'>
             <Popover.Button suppressHydrationWarning
                 className={clsx([
-                    'relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800',
+                    'relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800  whitespace-nowrap',
 
                     selectedCategories?.length > 0 &&
                     'border-primary-800 text-primary-800',
@@ -36,7 +36,7 @@ const CategorySelectMenu = ({ categories }: Props) => {
                     : 'Categories'}
                 <BsFillCaretDownFill className='text-sm transition-transform duration-75 ui-open:rotate-180 ui-open:transform' />
             </Popover.Button>
-            <Popover.Panel className='absolute z-30 grid translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-lg sm:grid-cols-2'>
+            <Popover.Panel className='absolute min-w-max z-30 grid translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-lg sm:grid-cols-2'>
                 {categories.map((category) => (
                     <button
                         key={category._id}

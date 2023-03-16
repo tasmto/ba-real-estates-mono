@@ -39,10 +39,10 @@ const SortByMenu = () => {
     const [sortBy, setSortBy] = useAtom(sortByAtom);
 
     return (
-        <Popover suppressHydrationWarning>
+        <Popover suppressHydrationWarning className={'relative'}>
             <Popover.Button
                 className={clsx([
-                    'relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800',
+                    'relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800  whitespace-nowrap',
 
                     sortBy &&
                     'border-primary-800 text-primary-800',
@@ -51,7 +51,7 @@ const SortByMenu = () => {
                 {sortBy.anchorText || 'Sort by'}
                 <BsFillCaretDownFill className='text-sm transition-transform duration-75 ui-open:rotate-180 ui-open:transform' />
             </Popover.Button>
-            <Popover.Panel className='absolute z-30 grid translate-y-[3%] bg-gray-50 pt-2 pb-1 shadow-lg'>
+            <Popover.Panel className='absolute min-w-max z-30 grid translate-y-[3%] bg-gray-50 pt-2 pb-1 shadow-lg'>
 
                 {sortByOptions.map((option) => (
                     <button
@@ -61,7 +61,7 @@ const SortByMenu = () => {
                             setSortBy(option)
                         }}
                         className={clsx([
-                            'px-5 py-2 !outline-0 !ring-0 text-sm transition-colors duration-300',
+                            'px-5 py-2 !outline-0 !ring-0 text-sm transition-colors duration-300 whitespace-nowrap',
                             option.key === sortBy.key
                                 ? 'bg-primary-700 text-white'
                                 : 'border-gray-400  bg-transparent text-gray-700',

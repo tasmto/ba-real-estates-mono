@@ -13,8 +13,8 @@ const SelectedAreaBadge = (props: Props) => {
     if (!selectedArea) return <></>
     return (
         <div suppressHydrationWarning className={
-            clsx(['relative flex text-sm items-center justify-center gap-2 rounded-lg border  px-3 py-2 text-gray-700 !outline-0 !ring-0',
-
+            clsx(['relative flex text-sm self-start items-center justify-center gap-2 rounded-lg border  px-3 py-2 text-gray-700 !outline-0 !ring-0  whitespace-nowrap',
+                '',
                 'border-primary-800 text-primary-800'])
         }>
             <span>{selectedArea?.name}</span>

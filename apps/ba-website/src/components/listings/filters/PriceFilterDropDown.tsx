@@ -115,13 +115,13 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
     // if (!listings || listings.length <= 0) return null;
 
     return (
-        <Popover suppressHydrationWarning>
+        <Popover suppressHydrationWarning className={'relative'}>
             <Popover.Button
                 className={clsx([
                     (minPrice || maxPrice) &&
                     !loadingChange &&
                     "border-primary-800 text-primary-800",
-                    "relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800",
+                    "relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800 whitespace-nowrap",
                     loadingChange && ' animate-button-loading',
                 ])}
             >
@@ -140,8 +140,8 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                     : "Price range:"}
                 <BsFillCaretDownFill className="text-sm transition-transform duration-75 ui-open:rotate-180 ui-open:transform" />
             </Popover.Button>
-            <Popover.Panel className="absolute z-30 grid translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-lg sm:min-w-[300px] sm:grid-cols-2">
-                <div className="col-span-full mt-2 flex w-full flex-col justify-end gap-2 pb-[30px]">
+            <Popover.Panel className="absolute min-w-max z-30 grid translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-lg sm:min-w-[300px] sm:grid-cols-2">
+                <div className="col-span-full mt-2 flex w-full flex-col justify-end gap-2 pb-[20px]">
                     <div className="sm:justify-stretch flex flex-col justify-between gap-3 sm:grid sm:grid-cols-2">
                         <fieldset className="grid gap-1">
                             <label
@@ -155,7 +155,7 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                                 type="number"
                                 min={1}
                                 className={clsx([
-                                    "rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  active:border-primary-700 active:text-primary-800",
+                                    "rounded-lg border sm:max-w-[110px] border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  active:border-primary-700 active:text-primary-800",
                                 ])}
                                 value={localMinMaxPriceValue[0] || 0}
                                 onChange={(e) => {
@@ -172,7 +172,7 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                                 id="maxPrice"
                                 type="number"
                                 className={clsx([
-                                    "rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  active:border-primary-700 active:text-primary-800",
+                                    "rounded-lg border sm:max-w-[110px] border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  active:border-primary-700 active:text-primary-800",
                                 ])}
                                 value={localMinMaxPriceValue[1] || 10000000}
                                 onChange={(e) => {
@@ -200,12 +200,12 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => formatCurrency(value)}
                         // getAriaValueText={valuetext}
-                        step={null}
+                        // step={null}
                         min={sliderMarks?.at(0)?.value}
                         max={sliderMarks?.at(-1)?.value}
                     />
                 </div>
-                <div className="col-span-full mt-2 flex w-full justify-end gap-2">
+                <div className="col-span-full flex w-full justify-end gap-2">
                     <Popover.Button
                         onClick={() => {
                             setMinPrice(undefined)

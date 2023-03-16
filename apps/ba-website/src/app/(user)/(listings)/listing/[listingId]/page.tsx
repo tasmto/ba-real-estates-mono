@@ -23,9 +23,10 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
     const property: PropertyType = await client.fetch(propertyQuery);
 
     return (
-        <div className='bg-slate-50 pb-20'>
-            <div className='container grid gap-12 '>
-                <div className=' mt-16 flex flex-col justify-between gap-4 sm:flex-row '>
+        <div className='pb-20 overflow-auto h-full'>
+            <div className='container grid gap-8 mt-8 
+            '>
+                <div className='flex flex-col justify-between gap-4 sm:flex-row '>
                     <div className='grid gap-1'>
                         <h1 className='font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
                             {property?.title || ''}
@@ -43,11 +44,11 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                     </p>
                 </div>
 
-                {/* Image gallery */}
-                <div className='sm:grid sm:grid-cols-3 sm:gap-x-6'>
-                    <div className='aspect-w-3 aspect-h-4 hidden overflow-hidden sm:block'>
+
+                <div className='grid grid-rows-3 sm:grid-rows-1 sm:grid-cols-5 gap-3 h-96 sm:h-[30rem]'>
+                    <div className='overflow-hidden row-span-2 sm:row-span-1 sm:col-span-3 sm:block rounded-t-xl sm:rounded-tr-none sm:rounded-l-xl  relative after:block after:top-0 after:h-full after:w-full after:absolute after:bg-transparent after:transition-colors hover:after:bg-gray-800/30 cursor-pointer'>
                         <Image
-                            className='h-full w-full object-cover object-center'
+                            className='h-full w-full object-cover object-center '
                             src={
                                 (property?.featuredImage?.asset &&
                                     urlFor(property?.featuredImage.asset)
@@ -62,14 +63,15 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                         />
                     </div>
                     {property?.gallery && property?.gallery.length > 1 && (
-                        <>
-                            <div className='hidden sm:grid sm:grid-cols-1 sm:gap-y-6'>
-                                <div className='aspect-w-3 aspect-h-2 relative overflow-hidden overflow-hidden'>
+
+                        <div className='row-span-1 rounded-b-xl sm:rounded-b-none sm:rounded-r-xl h-36 sm:h-full grid  sm:grid-cols-1 grid-cols-[repeat(_auto-fit,_minmax(100px_,_1fr_))] grid-rows-[144px] sm:grid-rows-[repeat(_auto-fit,_minmax(250px_,_1fr_))] sm:col-span-2  md:grid-rows-[repeat(_auto-fit,_minmax(385px_,_1fr_))] gap-3 w-full overflow-x-auto sm:overflow-x-hidden overflow-y-hidden sm:overflow-y-auto'>
+                            {property.gallery.map(image => (
+                                <div className='w-full row-span-full sm:row-span-1 h-36 sm:h-96 relative after:block after:top-0 after:h-full after:w-full after:absolute after:bg-transparent after:transition-colors hover:after:bg-gray-800/30 cursor-pointer' key={image._key}>
                                     <Image
                                         fill
                                         src={
-                                            (property?.gallery[0]?.asset &&
-                                                urlFor(property?.gallery[0].asset)
+                                            (image?.asset &&
+                                                urlFor(image.asset)
                                                     ?.width(700)
                                                     .height(700)
                                                     .url()) ||
@@ -79,41 +81,14 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                                         className='h-full w-full object-cover object-center'
                                     />
                                 </div>
-                                <div className='aspect-w-3 aspect-h-2 relative overflow-hidden overflow-hidden'>
-                                    <Image
-                                        fill
-                                        src={
-                                            (property?.gallery[1]?.asset &&
-                                                urlFor(property?.gallery[1].asset)
-                                                    ?.width(700)
-                                                    .height(700)
-                                                    .url()) ||
-                                            ''
-                                        }
-                                        alt={''}
-                                        className='h-full w-full object-cover object-center'
-                                    />
-                                </div>
-                            </div>
-                            <div className='aspect-w-4 aspect-h-5 sm:aspect-w-3 sm:aspect-h-4 sm sm:overflow-hidden'>
-                                <Image
-                                    height={700}
-                                    width={300}
-                                    src={
-                                        (property?.gallery[2]?.asset &&
-                                            urlFor(property?.gallery[2].asset)
-                                                ?.width(700)
-                                                .height(700)
-                                                .url()) ||
-                                        ''
-                                    }
-                                    alt={''}
-                                    className='h-full w-full object-cover object-center'
-                                />
-                            </div>
-                        </>
+                            ))}
+
+                        </div>
+
                     )}
                 </div>
+
+
                 <div className='grid gap-10 '>
                     <div className='grid  gap-6 divide-y bg-white p-8'>
                         <div>

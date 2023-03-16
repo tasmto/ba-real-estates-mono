@@ -98,7 +98,7 @@ const Wrapper = ({ properties, categories }: Props) => {
             return properties;
         },
         initialData: properties,
-        // keepPreviousData: true,
+        keepPreviousData: true,
     });
 
     // * This controls client-side filtering of listings and well as how they get displayed. --------------------------
@@ -242,14 +242,15 @@ const Wrapper = ({ properties, categories }: Props) => {
             </div>
             <div
                 className={clsx(
-                    "mr-auto w-full  transition-all duration-150",
+                    "mr-auto w-full filter-container--outer transition-all duration-150 relative",
                     listingsMapOpen ? "md:w-1/2 xl:w-3/5" : "w-full"
                 )}
             >
                 <ListingsFilters
                     className={clsx([
-                        "fixed bottom-4 left-1/2 z-40 -translate-x-1/2 md:sticky md:top-0 md:left-0 md:translate-x-0",
+                        "fixed bottom-4 left-1/2 z-40 -translate-x-1/2 md:absolute md:top-0 md:left-0 md:translate-x-0 py-1 row-end-2 row-start-1",
                         listingsMapOpen ? "" : "md:container md:px-0",
+                        // listingsMapOpen ? "md:max-w-[50%] xl:max-w-[60%]" : " w-full",
                     ])}
                     categories={categories}
                     listings={filteredListings}
@@ -257,7 +258,7 @@ const Wrapper = ({ properties, categories }: Props) => {
                 />
 
                 <div
-                    className=" h-full  max-h-[95vh] overflow-y-scroll sm:max-h-[90vh] md:max-h-[85vh]"
+                    className="sm:mt-[55px] h-full row-end-3 row-start-2 max-h-[95vh] overflow-y-scroll sm:max-h-[90vh] md:max-h-[90vh]"
                     id="listingsScrollContainer"
                 >
                     <InfiniteScroll
