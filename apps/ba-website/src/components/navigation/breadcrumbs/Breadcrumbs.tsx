@@ -1,4 +1,5 @@
 import React from 'react'
+// eslint-disable-next-line import/named
 import { IconType } from 'react-icons/lib';
 import { RxSlash } from "react-icons/rx"
 import clsx from 'clsx';

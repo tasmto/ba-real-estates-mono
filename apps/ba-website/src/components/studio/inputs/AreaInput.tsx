@@ -1,7 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import Geocode from 'react-geocode';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Spinner, Stack, Text, TextInput } from '@sanity/ui';
+// eslint-disable-next-line import/named
 import { ObjectInputProps, set, unset } from 'sanity';
 import { Area } from 'types';
 

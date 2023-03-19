@@ -4,7 +4,7 @@ import React from 'react';
 import { CircleMarker, MapContainer, TileLayer } from 'react-leaflet';
 import { MarkerLayer } from 'react-leaflet-marker';
 import clsx from 'clsx';
-import { SanityGeoPoint } from 'sanity-codegen';
+import { SanityGeoPoint } from 'types';
 
 import 'leaflet/dist/leaflet.css';
 

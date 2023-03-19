@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:ba-web": "cd apps/ba-website/ && yarn build",
     "dev": "turbo run dev",
     "dev:all": "turbo run dev --parallel",
     "dev:ba-web": "cd apps/ba-website/ && yarn dev",
