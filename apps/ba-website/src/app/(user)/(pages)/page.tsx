@@ -140,7 +140,7 @@ const HomePage = async (props: Props) => {
       </div>
       <div className='container grid gap-10   bg-white pt-16 pb-20 lg:pt-24 lg:pb-28'>
         <div className='relative text-center'>
-          <h2 className='mb-5 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+          <h2 className='mb-5 font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
             Latest property listings
           </h2>
 
@@ -154,7 +154,7 @@ const HomePage = async (props: Props) => {
           )}
           <Link href="/listings"
             type='button'
-            className='mx-auto mt-10 flex items-center gap-2 rounded-lg bg-accent-200 px-8 py-4 font-medium text-primary-800 hover:bg-accent-300 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400'
+            className='mx-auto mt-10 inline-flex self-start items-center gap-2 rounded-lg bg-accent-200 px-8 py-4 font-medium text-primary-800 hover:bg-accent-300 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-400'
           >
             <span>Explore all Listings</span>
             <HiArrowRight />
@@ -173,7 +173,7 @@ const HomePage = async (props: Props) => {
             </div>
           </div>{' '}
           <div className='mx-auto max-w-xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
-            <h2 className='mt-6 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+            <h2 className='mt-6 font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
               Find your next home with us.
             </h2>
             <p className='mt-4 text-lg text-gray-500'>
@@ -222,7 +222,7 @@ const HomePage = async (props: Props) => {
         <div className='mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8'>
           <div className='overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4'>
             <div className='pt-10 pb-12 pr-6 sm:pt-16 sm:pr-16 lg:self-center lg:py-16 lg:pr-0 xl:py-20 xl:pr-20'>
-              <h2 className='font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+              <h2 className='font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
                 Best rated host on popular rental sites
               </h2>
               <p className='mt-4 text-lg leading-6 text-gray-500'>
@@ -273,7 +273,7 @@ const HomePage = async (props: Props) => {
           <div className=' sm:flex sm:items-center sm:justify-between'>
             <div className='grid gap-3'>
               {' '}
-              <h2 className='font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+              <h2 className='font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
                 Find the category for you
               </h2>
               <p className=' text-gray-500'>
@@ -298,7 +298,7 @@ const HomePage = async (props: Props) => {
                 <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 xl:gap-x-8  xl:space-x-0 xl:px-0'>
                   {allPropertyCategories.map((cat, index) => (
                     <Link
-                      href={cat.slug?.current || ''}
+                      href={'/listings?category=' + cat.slug?.current || ''}
                       key={index}
                       className='relative flex h-96 w-full flex-col overflow-hidden p-6 hover:opacity-75 md:h-[28rem] xl:w-auto'
                     >
@@ -345,7 +345,7 @@ const HomePage = async (props: Props) => {
       {/* <div className='bg-white'>
         <div className='mx-auto grid max-w-2xl grid-cols-1 items-center gap-y-16 gap-x-8 py-24 px-4 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8'>
           <div>
-            <h2 className='font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+            <h2 className='font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
               Technical Specifications
             </h2>
             <p className='mt-4 text-gray-500'>

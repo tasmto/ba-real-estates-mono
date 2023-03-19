@@ -13,11 +13,11 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     allPropertyCategoriesQuery
   );
   return (
-    <>
+    <div className='overflow-auto h-full'>
       <Header propertyCategories={allPropertyCategories} className="container" />
-      <main>{children}</main>
+      <main >{children}</main>
       <Footer propertyCategories={allPropertyCategories} />
-    </>
+    </div>
   );
 };
 export default RootLayout;

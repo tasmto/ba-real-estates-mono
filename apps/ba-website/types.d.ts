@@ -393,6 +393,13 @@ export interface TeamMember extends SanityDocument {
   bio?: string;
 
   /**
+   * Prequalification Link — `url`
+   *
+   *
+   */
+  prequalificationLink?: string;
+
+  /**
    * Operational Areas — `array`
    *
    *

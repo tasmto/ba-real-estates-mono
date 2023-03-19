@@ -14,7 +14,7 @@ const Page = async () => {
     return (
         <div className="container grid gap-6  mt-16 mb-16">
             <div className="text-center mb-4">
-                <h1 className='font-display text-5xl font-extrabold tracking-tight text-gray-900 md:text-6xl'>
+                <h1 className='font-display text-5xl font-semibold tracking-tight text-gray-900 md:text-6xl'>
                     Meet our team
                 </h1>
                 <p className='leading-2 font-bold text-gray-300'>

@@ -46,9 +46,9 @@ const ListingPageContactForm = ({ property }: Props) => {
                         ...data,
                         listingLink: `barealestates.co.za/listing/${property.slug?.current ?? ''
                             }`,
-                        agents: property.agents
+                        agents: property.agents.length > 0 ? property.agents
                             .map((agent) => agent.email || '')
-                            .toString(),
+                            .toString() : 'admin@barealestates.co.za',
                     }),
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const ListingPageContactForm = ({ property }: Props) => {
                 </div>
             ) : formSubmited ? (
                 <div className='grid h-full items-start rounded-lg border border-slate-200 py-6 px-4'>
-                    <h3 className='mb-4 font-display text-2xl font-extrabold tracking-tight text-gray-900'>
+                    <h3 className='mb-4 font-display text-2xl font-semibold tracking-tight text-gray-900'>
                         Thank you so much!
                     </h3>
                     <p className='text-lg text-gray-500'>
@@ -120,51 +120,53 @@ const ListingPageContactForm = ({ property }: Props) => {
                             </div>
                         )}
                     </div>
-                    <div className='grid gap-2'>
-                        <label
-                            htmlFor='email'
-                            className='font-bold text-gray-900 sm:text-lg'
-                        >
-                            Email
-                        </label>
-                        <input
-                            type='email'
-                            {...register('email')}
-                            autoComplete='email'
-                            className={clsx(
-                                'block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500 focus:ring-primary-500',
-                                errors?.email?.message && 'border-rose-400 text-rose-700'
+                    <div className="grid gap-2 sm:grid-cols-2">
+                        <div className='grid gap-2'>
+                            <label
+                                htmlFor='email'
+                                className='font-bold text-gray-900 sm:text-lg'
+                            >
+                                Email
+                            </label>
+                            <input
+                                type='email'
+                                {...register('email')}
+                                autoComplete='email'
+                                className={clsx(
+                                    'block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500 focus:ring-primary-500',
+                                    errors?.email?.message && 'border-rose-400 text-rose-700'
+                                )}
+                                placeholder='Enter your email'
+                            />
+                            {errors.email?.message && (
+                                <div className='rounded-lg bg-rose-200 py-2 px-2 text-sm text-rose-800'>
+                                    {JSON.stringify(errors?.email?.message).replaceAll('"', '')}
+                                </div>
                             )}
-                            placeholder='Enter your email'
-                        />
-                        {errors.email?.message && (
-                            <div className='rounded-lg bg-rose-200 py-2 px-2 text-sm text-rose-800'>
-                                {JSON.stringify(errors?.email?.message).replaceAll('"', '')}
-                            </div>
-                        )}
-                    </div>
-                    <div className='grid gap-2'>
-                        <label
-                            htmlFor='phone'
-                            className='font-bold text-gray-900 sm:text-lg'
-                        >
-                            Phone
-                        </label>
-                        <input
-                            type='text'
-                            {...register('phone')}
-                            autoComplete='tel'
-                            className={clsx(
-                                'block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500 focus:ring-primary-500',
-                                errors?.phone?.message && 'border-rose-400 text-rose-700'
+                        </div>
+                        <div className='grid gap-2'>
+                            <label
+                                htmlFor='phone'
+                                className='font-bold text-gray-900 sm:text-lg'
+                            >
+                                Phone
+                            </label>
+                            <input
+                                type='text'
+                                {...register('phone')}
+                                autoComplete='tel'
+                                className={clsx(
+                                    'block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500 focus:ring-primary-500',
+                                    errors?.phone?.message && 'border-rose-400 text-rose-700'
+                                )}
+                                placeholder='Enter your phone number'
+                            />
+                            {errors.phone?.message && (
+                                <div className='rounded-lg bg-rose-200 py-2 px-2 text-sm text-rose-800'>
+                                    {JSON.stringify(errors?.phone?.message).replaceAll('"', '')}
+                                </div>
                             )}
-                            placeholder='Enter your phone number'
-                        />
-                        {errors.phone?.message && (
-                            <div className='rounded-lg bg-rose-200 py-2 px-2 text-sm text-rose-800'>
-                                {JSON.stringify(errors?.phone?.message).replaceAll('"', '')}
-                            </div>
-                        )}
+                        </div>
                     </div>
                     <div className='grid gap-2'>
                         <label
@@ -178,7 +180,7 @@ const ListingPageContactForm = ({ property }: Props) => {
                             {...register('message')}
                             rows={4}
                             className={clsx(
-                                'focus:ring-primary-} block w-full rounded-md border border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500',
+                                'focus:ring-primary-500 block w-full rounded-md border border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-primary-500',
                                 errors?.message?.message && 'border-rose-400 text-rose-700'
                             )}
                             placeholder='Enter your message'

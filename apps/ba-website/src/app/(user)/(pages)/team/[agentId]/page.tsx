@@ -115,7 +115,7 @@ const AgentPage = async ({ params }: AgentPageTypes) => {
                                     {BRAND_SHORT_NAME} {agent.role}
                                 </span>
                             </p>
-                            <h1 className='font-display text-5xl font-extrabold tracking-tight text-gray-900 md:text-6xl'>
+                            <h1 className='font-display text-5xl font-semibold tracking-tight text-gray-900 md:text-6xl'>
                                 {agent.name}
                             </h1>
                             <div className='mt-6 space-y-6 text-gray-500'>
@@ -222,7 +222,7 @@ const AgentPage = async ({ params }: AgentPageTypes) => {
 
             <div className='container grid gap-10  mb-10  bg-gradient-to-b from-white to-gray-50'>
                 <div className='relative text-center'>
-                    <h2 className='mb-5 font-display text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+                    <h2 className='mb-5 font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
                         {agent.name}'s Listings & Sales
                     </h2>
 
@@ -277,7 +277,7 @@ const AgentPage = async ({ params }: AgentPageTypes) => {
 
                     <div className='relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8'>
                         <div className='relative'>
-                            <h3 className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl'>
+                            <h3 className='text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl'>
                                 I am dedicated to helping you one on one
                             </h3>
                             <p className='mt-3 text-lg text-gray-500'>
@@ -385,7 +385,7 @@ const AgentPage = async ({ params }: AgentPageTypes) => {
                     <div className='relative mt-12 sm:mt-16 lg:mt-24'>
                         <div className='lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8'>
                             <div className='lg:col-start-2'>
-                                <h3 className='text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl'>
+                                <h3 className='text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl'>
                                     Selling one yard at a time
                                 </h3>
                                 <p className='mt-3 text-lg text-gray-500'>

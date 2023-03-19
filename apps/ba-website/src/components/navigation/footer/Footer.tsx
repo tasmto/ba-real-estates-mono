@@ -3,6 +3,7 @@ import { BsFacebook } from 'react-icons/bs';
 import { FaTiktok, FaYoutube } from 'react-icons/fa';
 import { RiInstagramFill, RiTwitterFill } from 'react-icons/ri';
 import Image from 'next/image';
+import Link from 'next/link';
 import { PropertyCategory } from 'types';
 
 import NewsletterForm from '@/components/navigation/footer/NewsletterForm';
@@ -65,12 +66,12 @@ const FooterLink = ({
     children: ReactNode;
 }) => (
     <li>
-        <a
-            href={`/${href}`}
+        <Link
+            href={`${href}`}
             className='text-base text-gray-400 hover:text-primary-400'
         >
             {children}
-        </a>
+        </Link>
     </li>
 );
 
@@ -95,7 +96,7 @@ const Footer = ({ propertyCategories }: Props) => {
                                 height={50}
                                 width={57}
                             />
-                            <h1 className='font-extrabold tracking-tighter text-xl text-gray-100'>
+                            <h1 className='font-semibold tracking-tighter text-xl text-gray-100'>
                                 BA Real Estates
                             </h1>
                         </div>
@@ -128,7 +129,7 @@ const Footer = ({ propertyCategories }: Props) => {
                                         <FooterLink
                                             key={cat?.name ?? i}
 
-                                            href={`/${cat.slug?.current}`}
+                                            href={`/listings?category=${cat.slug?.current}`}
                                         >
                                             {cat.name}
                                         </FooterLink>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { CircleMarker, MapContainer, TileLayer } from 'react-leaflet';
 import { MarkerLayer } from 'react-leaflet-marker';
+import clsx from 'clsx';
 import { SanityGeoPoint } from 'sanity-codegen';
 
 import 'leaflet/dist/leaflet.css';
@@ -12,20 +13,24 @@ export type ListingMapProps = {
     zoom?: number;
     center?: SanityGeoPoint;
     pins?: SanityGeoPoint[];
+    className?: string,
+    containerClassName?: string
 };
 
-const ListingMap = ({ center, pins, zoom }: ListingMapProps) => {
+const ListingMap = ({ center, pins, zoom, className, containerClassName }: ListingMapProps) => {
 
     if (!center || !center?.lat || !pins || pins?.length <= 0) return <></>;
     if (typeof window === 'undefined') return <></>
 
     return (
-        <div className='relative'>
+        <div className={clsx(['relative', containerClassName])}>
             <MapContainer
                 center={[center?.lat, center?.lng]}
                 zoom={zoom || 13}
+                maxZoom={zoom || 13}
+                minZoom={zoom || 13}
                 scrollWheelZoom={false}
-                className='h-[250px] w-full sm:h-[350px] md:h-[450px]'
+                className={clsx([' z-0 w-full', className])}
 
             >
                 <TileLayer

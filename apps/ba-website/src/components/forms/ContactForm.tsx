@@ -61,7 +61,7 @@ const ContactForm = () => {
                 </div>
             ) : formSubmited ? (
                 <div className='grid h-full items-start rounded-lg border border-slate-200 py-6 px-4'>
-                    <h3 className='mb-4 font-display text-2xl font-extrabold tracking-tight text-gray-900'>
+                    <h3 className='mb-4 font-display text-2xl font-semibold tracking-tight text-gray-900'>
                         Thank you so much!
                     </h3>
                     <p className='text-lg text-gray-500'>
