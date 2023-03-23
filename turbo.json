@@ -1,0 +1,29 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "env": [
+                "NODE_ENV"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
+        "ba-website#build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "env": [
+                "NODE_ENV"
+            ],
+            "outputs": [
+                ".next/**"
+            ]
+        }
+    },
+    "globalEnv": [],
+    "globalDependencies": []
+}
