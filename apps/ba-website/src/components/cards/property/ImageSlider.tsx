@@ -15,7 +15,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // Import Swiper styles
-import './propertycard.css';
 import 'swiper/css';
 
 type Props = {
