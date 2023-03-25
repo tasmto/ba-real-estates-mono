@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen": "npx sanity-codegen",
-    "test": ""
+    "gen": "npx sanity-codegen"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -70,9 +69,6 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.2",
     "sanity-codegen": "^0.9.8",
