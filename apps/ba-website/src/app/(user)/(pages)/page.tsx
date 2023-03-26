@@ -148,7 +148,7 @@ const HomePage = async (props: Props) => {
             <PropertyCategoryTabs
               listings={properties}
               categories={allPropertyCategories}
-              limit={6}
+              limit={8}
               defaultTab={1}
             />
           )}
@@ -223,7 +223,7 @@ const HomePage = async (props: Props) => {
           <div className='overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4'>
             <div className='pt-10 pb-12 pr-6 sm:pt-16 sm:pr-16 lg:self-center lg:py-16 lg:pr-0 xl:py-20 xl:pr-20'>
               <h2 className='font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl'>
-                Best rated host on popular rental sites
+                About BA Real Estates
               </h2>
               <p className='mt-4 text-lg leading-6 text-gray-500'>
                 We strive to develop purposeful relationships by effectively

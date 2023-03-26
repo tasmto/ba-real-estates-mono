@@ -29,7 +29,7 @@ const PropertyCategoryTabs = ({ categories, listings, limit, defaultTab }: Props
                     content: (
                         <div
                             key={currentCategory._id}
-                            className='grid items-start gap-x-6 gap-y-6 md:grid-cols-3'
+                            className='grid items-start gap-x-6 gap-y-6 md:grid-cols-3 xl:grid-cols-4'
                         >
                             {categoryListings.slice(0, limit || -1).map((item, index) => (
                                 <PropertyCard key={index} {...item} />

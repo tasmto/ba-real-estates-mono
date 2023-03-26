@@ -121,7 +121,7 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                     (minPrice || maxPrice) &&
                     !loadingChange &&
                     "border-primary-800 text-primary-800",
-                    "relative flex items-center gap-2 rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800 whitespace-nowrap",
+                    "relative flex items-center gap-2 rounded-lg bg-gray-50  border border-gray-400 px-3 py-2 text-sm text-gray-700 !outline-0 !ring-0  ui-open:border-primary-700 ui-open:text-primary-800 whitespace-nowrap",
                     loadingChange && ' animate-button-loading',
                 ])}
             >
@@ -140,7 +140,7 @@ const PriceFilterDropDown = ({ listings, nonFilteredListings }: Props) => {
                     : "Price range:"}
                 <BsFillCaretDownFill className="text-sm transition-transform duration-75 ui-open:rotate-180 ui-open:transform" />
             </Popover.Button>
-            <Popover.Panel className="absolute min-w-max z-30 grid translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-lg sm:min-w-[300px] sm:grid-cols-2">
+            <Popover.Panel className="absolute min-w-max z-30 grid translate-y-[-113%] sm:translate-y-[3%] gap-3 bg-gray-50 py-4 px-4 pb-3 shadow-[1px_-12px_20px_3px_rgb(0_0_0_/_0.15)] sm:shadow-lg sm:min-w-[300px] sm:grid-cols-2">
                 <div className="col-span-full mt-2 flex w-full flex-col justify-end gap-2 pb-[20px]">
                     <div className="sm:justify-stretch flex flex-col justify-between gap-3 sm:grid sm:grid-cols-2">
                         <fieldset className="grid gap-1">

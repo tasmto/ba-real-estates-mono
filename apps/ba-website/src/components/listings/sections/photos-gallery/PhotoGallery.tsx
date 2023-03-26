@@ -59,7 +59,7 @@ const PhotoGallery = ({ images, property }: Props) => {
                 {images.slice(1).map((image, i, arr) => (
                     <div
                         className={clsx([
-                            "relative row-span-full h-36 w-full cursor-pointer snap-center snap-normal after:absolute after:top-0 after:block after:h-full after:w-full after:bg-transparent after:transition-colors hover:after:bg-gray-800/30 sm:row-span-1 sm:h-96",
+                            "relative row-span-full h-36 w-full min-w-[100px] cursor-pointer snap-center snap-normal after:absolute after:top-0 after:block after:h-full after:w-full after:bg-transparent after:transition-colors hover:after:bg-gray-800/30 sm:row-span-1 sm:h-96",
                             i === arr.length - 1 ? "sm:snap-bottom" : "sm:snap-start",
                         ])}
                         onClick={() => setActiveModalImage(i + 1)}
@@ -78,7 +78,7 @@ const PhotoGallery = ({ images, property }: Props) => {
                     </div>
                 ))}
             </div>
-            <button className="absolute z-10 right-8 bottom-4 rounded-md border border-transparent bg-gray-100 font-semibold py-2 px-4 text-base text-gray-800  hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-600" onClick={() => setActiveModalImage(0)}>See all Photos</button>
+            <button className="absolute z-10 right-8 bottom-4 rounded-md bg-gray-100 border border-gray-300 font-semibold py-2 px-4 text-base text-gray-800  hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-600" onClick={() => setActiveModalImage(0)}>See all Photos</button>
             <PhotosModal
                 images={images}
                 activeImageIndex={activeModalImage}
@@ -117,7 +117,7 @@ const PhotosModal = ({
             <Dialog
                 as="div"
                 className="fixed inset-0 z-30 overflow-y-auto"
-                onClose={() => setActiveImageIndex(undefined)}
+                onClose={() => { setActiveImageIndex(undefined); setActiveTab('photos') }}
             >
                 <div className="min-h-screen px-4 text-center">
                     <Transition.Child
@@ -141,7 +141,7 @@ const PhotosModal = ({
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="my-8 inline-block min-h-[50vh] sm:h-[90vh] max-h-[600px] w-screen max-w-[88vw] translate-y-1/4 transform divide-y-2 divide-gray-200 overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all sm:max-h-[800px] sm:w-[95vh] lg:max-w-[80vw]">
+                        <div className="my-8 inline-block min-h-[50vh] sm:h-[90vh] max-h-[600px] w-screen max-w-[88vw] translate-y-1/4 sm:translate-y-0 transform divide-y-2 divide-gray-200 overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all sm:max-h-[800px] sm:w-[95vh] lg:max-w-[80vw]">
                             <nav className="flex flex-wrap-reverse items-center justify-between gap-3 py-2 px-6">
                                 <ul className="flex gap-2 text-base">
                                     <li>
@@ -318,7 +318,7 @@ const PhotosModal = ({
                                                     ""
                                                 }
                                                 alt=""
-                                                className="w-full overflow-hidden rounded-lg object-contain md:m-auto pointer-events-none"
+                                                className="w-full overflow-hidden rounded-lg object-contain md:m-auto pointer-events-none max-h-[50vh] sm:max-h-[auto]"
                                             />
                                             <p className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-gray-800/90 px-4 py-1 text-white backdrop-blur-md">
                                                 {activeImageIndex + 1} of {images.length}

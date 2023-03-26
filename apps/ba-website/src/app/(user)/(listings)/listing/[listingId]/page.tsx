@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { groq } from "next-sanity";
+import ShareListingButton from "src/app/(user)/(listings)/listing/[listingId]/ShareListingButton";
 import {
     Area,
     Property,
@@ -34,7 +35,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
         await useFetchPropertyCategories<PropertyCategory>();
 
     return (
-        <div className="h-full overflow-auto">
+        <div className="h-full overflow-auto" key={1}>
             <div
                 className="container mt-8 mb-14 grid gap-12
             "
@@ -87,7 +88,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                         </div>
                         <div className="grid gap-6 pt-10">
                             <div>
-                                <h3 className="font-display text-3xl  font-semibold tracking-tight text-gray-800">
+                                <h3 className="font-display text-xl sm:text-2xl md:text-3xl  font-semibold tracking-tight text-gray-800">
                                     About This Property
                                 </h3>
 
@@ -110,7 +111,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                         </div>
                         {property?.features && property?.features.length > 0 && (
                             <div className="pt-10">
-                                <h3 className=" font-display text-3xl  font-semibold tracking-tight text-gray-800">
+                                <h3 className=" font-display text-xl sm:text-2xl md:text-3xl  font-semibold tracking-tight text-gray-800">
                                     Facilities & Features
                                 </h3>
                                 <div className="mt-6 flex divide-x-4 self-start justify-self-start">
@@ -140,7 +141,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                             </div>
                         )}
                         <div className="grid gap-6 pt-10" id="map">
-                            <h3 className=" font-display text-3xl  font-semibold tracking-tight text-gray-900">
+                            <h3 className=" font-display text-xl sm:text-2xl md:text-3xl  font-semibold tracking-tight text-gray-900">
                                 Location
                             </h3>
 
@@ -167,11 +168,11 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                             </figure>
                         </div>
                         {property?.agents?.length > 0 && <div className="grid gap-6 pt-10">
-                            <h1 className=" font-display text-3xl font-semibold tracking-tight text-gray-900">
+                            <h1 className=" font-display text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
                                 Property Agent{property?.agents?.length > 1 && "s"}
                             </h1>
 
-                            <div className="grid gap-4  sm:grid-cols-2">
+                            <div className="grid gap-4  sm:grid-cols-1 md:grid-cols-2">
                                 {property?.agents?.reverse()?.map((agent) => (
                                     <Link
                                         key={agent._id}
@@ -208,7 +209,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                         </div>}
                         <div className="grid gap-6 pt-10" id="contact">
                             <div className="col-span-full mt-6 mb-3 flex flex-wrap justify-between items-center gap-3">
-                                <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
                                     Interested in this property? Request a viewing.
                                 </h1>
                                 <p className="font-bold text-gray-300">
@@ -220,49 +221,28 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
                         </div>
                     </div>
                     <div className="sticky top-4 self-start grid gap-6">
-                        <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
                             Enquire about this listing
                         </h1>
                         <div className="grid gap-6 divide-y">
-                            <div className="grid gap-4 text-center">
+                            <div className="grid gap-2 text-center">
                                 <a target="_blank" rel="noreferrer"
                                     href={property?.agents?.find(agent => agent?.prequalificationLink)?.prequalificationLink || DEFAULT_PREQUALIFICATION_LINK}
-                                    className='inline-flex justify-center rounded-lg border  border-transparent bg-primary-700 px-8 py-4 text-base font-medium text-white shadow-sm hover:bg-primary-800'
+                                    className='inline-flex justify-center rounded-lg border  border-transparent bg-primary-700  px-4 py-3  text-base font-medium text-white shadow-sm hover:bg-primary-800'
                                 >
                                     Get pre-qualified
                                 </a>
                                 <a
                                     href='#contact'
-                                    className='inline-flex justify-center rounded-lg border border-transparent bg-accent-200 px-8 py-4 text-base font-medium text-primary-700 shadow-sm hover:bg-accent-300'
+                                    className='inline-flex justify-center rounded-lg border border-transparent bg-accent-200  px-4 py-3  text-base font-medium text-primary-700 shadow-sm hover:bg-accent-300'
                                 >
                                     Send an Enquiry
                                 </a>
-                                {/* <a
-                                onClick={() => {
-                                    if (typeof window !== undefined) {
-                                        const share = async () => {
-                                            try {
-
-                                                navigator.share({
-                                                    title: 'Hey, check out this property listing from BA Real Estates:',
-                                                    url: `/listing/${property.slug?.current}?utm_source=website-share`
-                                                })
-                                            } catch (err) {
-                                                alert(JSON.stringify(err));
-                                                // Todo copy the link to clipboard
-                                            }
-                                        }
-                                        share()
-                                    }
-                                }}
-                                className='inline-flex cursor-pointer justify-center rounded-lg border border-gray-300 bg-gray-100 px-8 py-4 text-base font-bold text-gray-800  shadow-sm hover:bg-gray-300'
-                            >
-                                Share Listing
-                            </a> */}
+                                <ShareListingButton slug={property?.slug?.current} />
                             </div>
                             <div className="pt-6 text-center grid grid-cols-2 gap-2">
-                                {property?.agents?.reverse()?.find(agent => agent.contactable && agent.phoneNumber)?.phoneNumber && <a href={`tel:${property?.agents?.reverse()?.find(agent => agent.contactable && agent.phoneNumber)?.phoneNumber?.replaceAll(' ', '')}`} className="text-lg font-semibold text-primary-600 underline hover:text-primary-800">{property?.agents?.reverse()?.find(agent => agent.contactable && agent.phoneNumber)?.phoneNumber}</a>}
-                                {property?.agents?.reverse()?.find(agent => agent.contactable && agent.email)?.email && <a href={`mailto:${property?.agents?.reverse()?.find(agent => agent.contactable && agent.email)?.email?.replaceAll(' ', '')}`} className="text-lg font-semibold text-primary-600 underline hover:text-primary-800">{property?.agents?.reverse()?.find(agent => agent.contactable && agent.email)?.email}</a>}
+                                {property?.agents?.find(agent => agent.phoneNumber) && <a href={`tel:${property?.agents?.find(agent => agent.phoneNumber)?.phoneNumber?.replaceAll(' ', '')}`} className="text-lg font-semibold text-primary-600 underline hover:text-primary-800">{property?.agents?.find(agent => agent.phoneNumber)?.phoneNumber}</a>}
+                                {property?.agents?.find(agent => agent.email) && <a href={`mailto:${property?.agents?.find(agent => agent.email)?.email?.replaceAll(' ', '')}`} className="text-lg font-semibold text-primary-600 underline hover:text-primary-800">{property?.agents?.find(agent => agent.email)?.email}</a>}
                             </div>
                         </div>
 
