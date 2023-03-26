@@ -54,7 +54,7 @@ const PropertyCardImageSlider = ({
     return (
         <div
             className={clsx([
-                'relative h-56 w-full bg-gray-200 object-cover md:h-56',
+                'relative h-56 w-full bg-gray-200 object-cover md:h-56 overflow-hidden',
                 className,
             ])}
             onMouseEnter={() => setIsHovering(true)}
