@@ -7,7 +7,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <link
           rel='preconnect'
           href='https://fonts.gstatic.com'
-          crossOrigin={'true'}
+          crossOrigin={'anonymous'}
         />
         <link
           href='https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap'
