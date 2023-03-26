@@ -18,7 +18,7 @@ function ReadMore({ children, minLength = 320, className, defaultState = false, 
     return (
         <div className="flex flex-col gap-3">
             <p className={clsx([className, expanded && 'whitespace-pre-line'])}>
-                {!expanded ? `${children.slice(0, minLength).trim()}${children.length > minLength && '...'}` : children}</p>
+                {!expanded ? `${children.slice(0, minLength).trim()}${children.length > minLength ? '...' : ''}` : children}</p>
             {children.length > minLength &&
                 <button role='button'
                     onClick={toggle}

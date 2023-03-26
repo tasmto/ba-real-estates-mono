@@ -258,12 +258,12 @@ const Wrapper = ({ properties, categories }: Props) => {
                 />
 
                 <div
-                    className="sm:mt-[55px] h-full row-end-3 row-start-2 max-h-[95vh] overflow-y-scroll sm:max-h-[90vh] md:max-h-[90vh]"
+                    className="sm:mt-[55px] h-full row-end-3 row-start-2 max-h-full sm:overflow-y-scroll sm:max-h-[90vh] md:max-h-[90vh]"
                     id="listingsScrollContainer"
                 >
                     <InfiniteScroll
                         className={clsx(
-                            "col grid h-full auto-rows-min grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
+                            "col grid h-full pb-14 sm:pb-0 auto-rows-min grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
                             listingsMapOpen
                                 ? ""
                                 : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"

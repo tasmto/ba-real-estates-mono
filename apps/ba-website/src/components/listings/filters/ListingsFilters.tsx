@@ -73,7 +73,7 @@ const ListingsFilters = ({
     return (
         <div
             className={clsx([
-                "pointer-events-none w-full flex pb-1 sm:bg-transparent bg-white",
+                "pointer-events-none w-full flex pb-1 bg-transparent  py-3 sm:py-0 px-2 sm:px-0 justify-center sm:justify-start items-end sm:items-start h-full sm:h-auto",
                 className,
             ])}
 
@@ -86,7 +86,7 @@ const ListingsFilters = ({
                 >
                     <BsFillCaretLeftFill />
                 </button>}
-            <div className="listing-filters-container flex snap-x overflow-x-auto w-full gap-2 visually-hide-scrollbar scroll-smooth" ref={scrollRef}>
+            <div className="listing-filters-container flex snap-x overflow-x-auto w-full gap-2 visually-hide-scrollbar scroll-smooth items-end sm:items-start h-full sm:h-auto" ref={scrollRef}>
                 <CategorySelectMenu categories={categories} />
                 <PriceFilterDropDown
                     listings={listings}
