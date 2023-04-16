@@ -9,7 +9,7 @@ import urlFor from "@/lib/sanity.helpers";
 
 const Page = async () => {
 
-    const AgentsQuery = groq`*[_type == 'teamMember']`;
+    const AgentsQuery = groq`*[_type == 'teamMember'] | order(name asc)`;
     const agents: TeamMember[] = await client.fetch(AgentsQuery);
     return (
         <div className="container grid gap-6  mt-16 mb-16">
@@ -18,7 +18,7 @@ const Page = async () => {
                     Meet our team
                 </h1>
                 <p className='leading-2 font-bold text-gray-300'>
-                    Here is the team behind BA real estates.
+                    Here is the team behind BA Real Estates.
                 </p>
             </div>
 
