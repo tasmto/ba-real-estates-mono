@@ -27,7 +27,6 @@ export const setFilterParams = (
     queryParams.get(key) === value ||
     (Array.isArray(value) && queryParams.get(key) === value.join("+").trim())
   ) {
-    console.log("skip");
     return;
   }
   if (!value || value === "" || value.length <= 0) {
@@ -42,7 +41,6 @@ export const setFilterParams = (
           item === (Array.isArray(value) ? value.join("+").trim() : value)
       )
   ) {
-    console.log("replace key");
     const queryStringWithoutValue = queryParams
       .get(key)
       ?.replaceAll(Array.isArray(value) ? value.join("+").trim() : value, "")
@@ -55,7 +53,6 @@ export const setFilterParams = (
       key,
       Array.isArray(value) ? value.join("+").trim() : value.toString()
     );
-    console.log("add");
   }
 };
 
