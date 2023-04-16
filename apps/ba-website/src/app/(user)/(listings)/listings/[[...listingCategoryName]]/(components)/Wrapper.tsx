@@ -158,8 +158,6 @@ const Wrapper = ({ properties, categories }: Props) => {
       );
       if (sortByFromUrl) setSortBy(sortByFromUrl);
     }
-
-    window?.scrollTo(0, 0);
   });
 
   return (
