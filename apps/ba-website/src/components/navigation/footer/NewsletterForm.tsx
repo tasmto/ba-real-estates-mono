@@ -56,7 +56,7 @@ const NewsletterForm = ({ className }: Props) => {
                         readOnly={isLoading}
                         id='email-address'
                         className=' w-full min-w-0  appearance-none rounded-md border border-gray-300 bg-white py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:border-primary-500 disabled:bg-gray-400 focus:placeholder-gray-400 focus:outline-none focus:ring-primary-500 sm:max-w-xs'
-                        placeholder='i.e. handsome@example.co.za'
+                        placeholder='i.e. user@example.co.za'
                     />
                     <div className='mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0'>
                         <button disabled={isLoading}

@@ -18,7 +18,7 @@ const Page = async () => {
                     Meet our team
                 </h1>
                 <p className='leading-2 font-bold text-gray-300'>
-                    Here is the team behind BA real estates.
+                    Here is the team behind BA Real Estates.
                 </p>
             </div>
 
