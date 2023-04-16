@@ -114,7 +114,7 @@ const HomePage = async (props: Props) => {
                   height={300}
                   width={100}
                   className="object-fit h-12 w-auto"
-                  src="/images/assets/ooba.png"
+                  src="/images/assets/ooba.svg"
                   alt=""
                   quality={90}
                 />
