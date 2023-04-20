@@ -166,8 +166,8 @@ export const listingRouter = createTRPCRouter({
       const allAreasInSanity: any[] = await client.fetch("*[_type == 'area']");
       const areaMatch = allAreasInSanity.find(
         (item) =>
-          item.location.coordinates.lat === geoData?.latitude &&
-          item.location.coordinates.lng === geoData?.longitude
+          item?.location?.coordinates?.lat === geoData?.latitude &&
+          item?.location?.coordinates?.lng === geoData?.longitude
       );
       let newSanityArea: Record<any, any> = {};
       delete listing.address;
@@ -198,7 +198,7 @@ export const listingRouter = createTRPCRouter({
         });
       }
 
-      listing.location = createReferenceFromRecord(
+      listing?.location = createReferenceFromRecord(
         areaMatch ? areaMatch : newSanityArea
       );
 
