@@ -1,0 +1,8 @@
+{
+    "accessibility": {
+        "skipToContent": "Skip the navigation menu",
+        "skipToNavigation": "Skip to navigation",
+        "skipToFooter": "Skip to footer",
+        "closeMobileMenu": "Close the navigation menu"
+    }
+}
