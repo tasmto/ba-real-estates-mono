@@ -21,9 +21,9 @@
     }
   })();
 
-  const autofill = (user: 'john' | 'jane') => () => {
-    emailInput.value = `${user}@mail.com`;
-    passwordInput.value = user === 'john' ? '1234' : 'qwer';
+  const autofill = (user: 'mercy' | 'bernard' | 'natasha') => () => {
+    emailInput.value = `${user}@barealestates.co.za`;
+    passwordInput.value = 'passw0rd!';
   };
 
   const clearError = () => {
@@ -41,8 +41,9 @@
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>Autofill</label>
     <div class="grid">
-      <button class="secondary" on:click|preventDefault={autofill('john')}>John</button>
-      <button class="secondary" on:click|preventDefault={autofill('jane')}>Jane</button>
+      <button class="secondary" on:click|preventDefault={autofill('bernard')}>Bernard</button>
+      <button class="secondary" on:click|preventDefault={autofill('mercy')}>Mercy</button>
+      <button class="secondary" on:click|preventDefault={autofill('natasha')}>Natasha</button>
     </div>
     <label>
       Email

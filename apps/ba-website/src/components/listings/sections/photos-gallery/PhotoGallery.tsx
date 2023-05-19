@@ -62,7 +62,7 @@ const PhotoGallery = ({ images, property }: Props) => {
               i === arr.length - 1 ? "sm:snap-bottom" : "sm:snap-start",
             ])}
             onClick={() => setActiveModalImage(i + 1)}
-            key={image._key}
+            key={image?._key || i}
           >
             <Image
               fill
@@ -235,7 +235,7 @@ const PhotosModal = ({
                     >
                       {images.map((image, index) => (
                         <button
-                          key={image._key}
+                          key={image?._key || index}
                           type="button"
                           className={clsx([
                             index === activeImageIndex

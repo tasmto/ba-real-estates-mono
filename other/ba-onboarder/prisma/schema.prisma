@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SystemRole {
+  user
+  manager
+  admin
+}
+
 model User {
   id           String @id @default(cuid())
   name         String
@@ -23,8 +29,20 @@ model User {
   managerId    String? @map("manager_id")
   subordinates User[]  @relation("ManagerSubordinates")
 
-  role Role? @relation(fields: [roleId], references: [id]) // onsave get all the role's contract templates and create a contract for each one
+  rolesMemberOf Role[] @relation("RoleManagers")
+  rolesCreated  Role[] @relation("RoleCreated")
+  rolesUpdated  Role[] @relation("RoleUpdated")
 
+  stepCollectionCreated StepCollection[] @relation("StepCollectionCreated")
+  stepCollectionUpdated StepCollection[] @relation("StepCollectionUpdated")
+
+  filesCreated File[] @relation("FilesCreated")
+  filesUpdated File[] @relation("FilesUpdated")
+
+  stepsCreated Step[] @relation("StepsCreated")
+  stepsUpdated Step[] @relation("StepsUpdated")
+
+  role     Role?   @relation(fields: [roleId], references: [id]) // onsave get all the role's contract templates and create a contract for each one
   roleId   String?
   jobTitle String  @default("Agent")
 
@@ -33,12 +51,14 @@ model User {
 
   contracts ContractFile[]
 
+  systemRole    SystemRole
+  stepsProgress Json
+
   // todo: remove these ***********
   updatedAuthors Author[]
   updatedBooks   Book[]
   updatedStores  Store[]
   // *****************************
-  SignUpStep     SignUpStep[]
 }
 
 model ContactInfo {
@@ -50,7 +70,7 @@ model ContactInfo {
   personalEmail String @unique
   businessEmail String @unique
 
-  emergencyContact        String @default("not set")
+  emergencyContactName    String @default("not set")
   emergencyContactPhone   String @default("not set")
   emergencyContactEmail   String @default("not set")
   emergencyContactAddress String @default("not set")
@@ -66,12 +86,95 @@ model Role {
   id          String  @id @default(cuid())
   name        String  @unique
   description String?
+  files       File[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   User?    @relation("RoleCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?    @relation("RoleUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  users User[]
+
+  stepsData Json
+  steps     StepCollection[]
+  managers  User[]           @relation("RoleManagers")
+
+  @@index([createdById, updatedById, id])
+}
+
+model File {
+  id                    String     @id @default(cuid())
+  fileLink              String
+  roles                 Role[]
+  systemRoleRestriction SystemRole @default(user)
+  name                  String
+  description           String
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  createdBy             User?      @relation("FilesCreated", fields: [createdById], references: [id])
+  createdById           String?
+  updatedBy             User?      @relation("FilesUpdated", fields: [updatedById], references: [id])
+  updatedById           String?
+  isArchived            Boolean    @default(false)
+  steps                 Step[]
+
+  @@index([createdById, updatedById, id])
+}
+
+model StepCollection {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  updatedAt   DateTime @updatedAt
+
+  createdBy   User?   @relation("StepCollectionCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?   @relation("StepCollectionUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  isActive   Boolean @default(true)
+  isArchived Boolean @default(false)
+  role       Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId     String
+
+  steps Step[]
+
+  @@index([roleId])
+}
+
+enum StepType {
+  contract
+  file
+  content
+}
+
+model Step {
+  id      String   @id @default(cuid())
+  name    String
+  content String
+  type    StepType @default(content)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users             User[]
-  contractTemplates ContractTemplate[]
+  createdBy   User?   @relation("StepsCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?   @relation("StepsUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  isArchived Boolean @default(false)
+
+  file       File?             @relation(fields: [fileId], references: [id])
+  fileId     String?
+  contract   ContractTemplate? @relation("Step", fields: [contractId], references: [id], onDelete: Cascade)
+  contractId String?
+
+  stepCollection   StepCollection @relation(fields: [stepCollectionId], references: [id], onDelete: Cascade)
+  stepCollectionId String
+
+  @@index([stepCollectionId])
 }
 
 model ContractTemplate {
@@ -87,7 +190,7 @@ model ContractTemplate {
   updatedAt DateTime @updatedAt
 
   contracts ContractFile[]
-  Role      Role[]
+  steps     Step[]         @relation("Step")
 }
 
 model ContractFile {
@@ -105,18 +208,6 @@ model ContractFile {
   updatedAt DateTime @updatedAt
 
   users  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-}
-
-model SignUpStep {
-  id        String  @id @default(cuid())
-  step      Int
-  completed Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 }
 
