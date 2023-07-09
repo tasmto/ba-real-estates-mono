@@ -19,7 +19,7 @@ const Page = async ({ params, searchParams }: Props) => {
       categoriesFromUrl && categoriesFromUrl.length > 0
         ? `category->slug.current in  [${Array.from(categoriesFromUrl).map(
           (cat) => `"${cat?.trim()}"`
-        )}]`
+        )}]` 
         : null,
     ],
     `"location": location -> { location, name }`,
