@@ -3,7 +3,7 @@ const nextConfig = {
   transpilePackages: ["ui"],
   reactStrictMode: true,
   swcMinify: true,
-  distDir: "../.next",
+  distDir: ".next",
   images: {
     remotePatterns: [
       {
