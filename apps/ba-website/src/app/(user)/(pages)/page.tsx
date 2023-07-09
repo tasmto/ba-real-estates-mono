@@ -8,8 +8,8 @@ import { PropertyWithLocation } from "typings";
 import SiteSearch from "@/components/inputs/search/siteSearch";
 import PropertyCategoryTabs from "@/components/inputs/tabs/PropertyCategoryTabs";
 import {
-  useFetchListings,
-  useFetchPropertyCategories,
+  fetchListings,
+  fetchPropertyCategories,
 } from "@/hooks/useSanity";
 import urlFor from "@/lib/sanity.helpers";
 
@@ -17,9 +17,9 @@ type Props = {};
 
 const HomePage = async (props: Props) => {
   const allPropertyCategories =
-    await useFetchPropertyCategories<PropertyCategory>();
+    await fetchPropertyCategories<PropertyCategory>();
 
-  const properties = await useFetchListings<PropertyWithLocation>(
+  const properties = await fetchListings<PropertyWithLocation>(
     undefined,
     `"location": location -> { location, name }`,
     " | order(_createdAt asc)"

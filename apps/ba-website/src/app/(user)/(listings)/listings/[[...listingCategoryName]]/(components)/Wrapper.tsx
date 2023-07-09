@@ -22,7 +22,7 @@ import {
 } from "@/components/listings/urlparams.helper";
 import useDebounce from "@/hooks/useDebounce";
 import useEffectOnce from "@/hooks/useEffectOnce";
-import { useFetchListings } from "@/hooks/useSanity";
+import { fetchListings } from "@/hooks/useSanity";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
 
 const ClientOnlyCollectionsMap = lazy(
@@ -69,7 +69,7 @@ const Wrapper = ({ properties, categories }: Props) => {
     ],
     queryFn: async () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const properties = await useFetchListings<PropertyWithLocation>(
+      const properties = await fetchListings<PropertyWithLocation>(
         [
           debouncedFilterCategories.length > 0
             ? `category->slug.current in  [${debouncedFilterCategories.map(

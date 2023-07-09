@@ -17,7 +17,7 @@ import PhotoGallery from "@/components/listings/sections/photos-gallery/PhotoGal
 import SizeRoomButtons from "@/components/listings/sections/SizeRoomButtons";
 import Footer from "@/components/navigation/footer/Footer";
 import { DEFAULT_PREQUALIFICATION_LINK } from "@/constants/site";
-import { useFetchPropertyCategories } from "@/hooks/useSanity";
+import { fetchPropertyCategories } from "@/hooks/useSanity";
 import { client } from "@/lib/sanity.client";
 import urlFor from "@/lib/sanity.helpers";
 import { formatCurrency } from "@/utils/format.number";
@@ -32,7 +32,7 @@ const Page = async ({ params }: { params: { listingId: string } }) => {
     const propertyQuery = groq`*[_type =="property" && slug.current == "${params.listingId}"][0]{...,"features": features[] ->{name, image, indoor}, "agents": agents[] -> {name, role, image, slug, areas},  "location": location -> {location, name}}`;
     const property: PropertyType = await client.fetch(propertyQuery);
     const propertyCategories =
-        await useFetchPropertyCategories<PropertyCategory>();
+        await fetchPropertyCategories<PropertyCategory>();
 
     return (
         <div className="h-full overflow-auto" key={1}>

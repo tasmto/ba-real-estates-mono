@@ -3,8 +3,8 @@ import { PropertyCategory } from 'types';
 import { PropertyWithLocation } from 'typings';
 
 import {
-  useFetchListings,
-  useFetchPropertyCategories,
+  fetchListings,
+  fetchPropertyCategories,
 } from '@/hooks/useSanity';
 
 import Wrapper from './(components)/Wrapper';
@@ -14,7 +14,7 @@ type Props = { params: { listingCategoryName: string[] }, searchParams?: { [key:
 const Page = async ({ params, searchParams }: Props) => {
 
   const categoriesFromUrl = searchParams?.category;
-  const properties = await useFetchListings<PropertyWithLocation>(
+  const properties = await fetchListings<PropertyWithLocation>(
     [
       categoriesFromUrl && categoriesFromUrl.length > 0
         ? `category->slug.current in  [${Array.from(categoriesFromUrl).map(
@@ -25,7 +25,7 @@ const Page = async ({ params, searchParams }: Props) => {
     `"location": location -> { location, name }`,
     ' | order(_createdAt asc)'
   );
-  const allCategories = await useFetchPropertyCategories<PropertyCategory>();
+  const allCategories = await fetchPropertyCategories<PropertyCategory>();
 
   return (
 

@@ -1,13 +1,13 @@
-import { groq } from 'next-sanity';
+import { groq } from "next-sanity";
 
-import { client } from '@/lib/sanity.client';
+import { client } from "@/lib/sanity.client";
 
-export const useFetchPropertyCategories = async <Type>(
+export const fetchPropertyCategories = async <Type>(
   conditions?: string,
   dataFilters?: string
 ) => {
   const allPropertyCategoriesQuery = groq`*[_type =="propertyCategory" ${
-    conditions ? `&& ${conditions}` : ''
+    conditions ? `&& ${conditions}` : ""
   }]{..., ${dataFilters && dataFilters}}`;
 
   const allPropertyCategories: Type[] = await client.fetch(
@@ -17,7 +17,7 @@ export const useFetchPropertyCategories = async <Type>(
   return allPropertyCategories;
 };
 
-export const useFetchListings = async <Type>(
+export const fetchListings = async <Type>(
   conditions?: Array<string | null>,
   dataFilters?: string,
   sorting?: string
@@ -26,20 +26,20 @@ export const useFetchListings = async <Type>(
     conditions && conditions?.find((item) => item !== null)
       ? `&& ${conditions
           .filter((condition) => condition !== null)
-          .join(' && ')}`
-      : ''
-  }]{..., ${dataFilters && dataFilters}} ${sorting || ''}`;
+          .join(" && ")}`
+      : ""
+  }]{..., ${dataFilters && dataFilters}} ${sorting || ""}`;
   const properties: Type[] = await client.fetch(propertiesQuery);
 
   return properties;
 };
 
-export const useFetchTeamMembers = async <Type>(
+export const fetchTeamMembers = async <Type>(
   conditions?: string,
   dataFilters?: string
 ) => {
   const memberQuery = groq`*[_type=='teamMember' ${
-    conditions ? `&& ${conditions}` : ''
+    conditions ? `&& ${conditions}` : ""
   }]{..., ${dataFilters && dataFilters}}`;
   const member: Type[] = await client.fetch(memberQuery);
 
