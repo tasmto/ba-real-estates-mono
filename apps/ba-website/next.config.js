@@ -22,6 +22,7 @@ const nextConfig = {
   },
   experimental: {
     appDir: true,
+    turboMode: false,
   },
   typescript: {
     ignoreBuildErrors: /*!process.env.NODE_ENV === 'production'*/ true,
