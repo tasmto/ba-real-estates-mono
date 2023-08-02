@@ -22,7 +22,7 @@ import {
 } from "@/components/listings/urlparams.helper";
 import useDebounce from "@/hooks/useDebounce";
 import useEffectOnce from "@/hooks/useEffectOnce";
-import { useFetchListings } from "@/hooks/useSanity";
+import { fetchListings } from "@/hooks/sanity.helpers";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
 
 const ClientOnlyCollectionsMap = lazy(
@@ -69,7 +69,7 @@ const Wrapper = ({ properties, categories }: Props) => {
     ],
     queryFn: async () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const properties = await useFetchListings<PropertyWithLocation>(
+      const properties = await fetchListings<PropertyWithLocation>(
         [
           debouncedFilterCategories.length > 0
             ? `category->slug.current in  [${debouncedFilterCategories.map(
@@ -215,7 +215,7 @@ const Wrapper = ({ properties, categories }: Props) => {
       >
         <ListingsFilters
           className={clsx([
-            "fixed bottom-4 left-1/2 z-40 row-start-1 row-end-2 -translate-x-1/2 py-1 md:absolute md:top-0 md:left-0 md:translate-x-0",
+            "fixed bottom-4 left-1/2 z-40 row-start-1 row-end-2 -translate-x-1/2 py-1 md:absolute md:left-0 md:top-0 md:translate-x-0",
             listingsMapOpen ? "" : "md:container md:px-0",
             // listingsMapOpen ? "md:max-w-[50%] xl:max-w-[60%]" : " w-full",
           ])}
@@ -240,7 +240,7 @@ const Wrapper = ({ properties, categories }: Props) => {
             hasMore={renderListingsCount <= filteredListings.length}
             loader={<h4>Loading...</h4>}
             endMessage={
-              <div className="col-span-full flex w-full flex-wrap justify-between gap-2 rounded-lg bg-gray-100 py-6 px-4">
+              <div className="col-span-full flex w-full flex-wrap justify-between gap-2 rounded-lg bg-gray-100 px-4 py-6">
                 <p className="text-serif text-xl">
                   Those are all the listings we have so far.
                 </p>

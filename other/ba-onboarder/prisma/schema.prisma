@@ -1,0 +1,258 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SystemRole {
+  user
+  manager
+  admin
+}
+
+model User {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  passwordHash String
+
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  isArchived Boolean  @default(false)
+
+  contactInfo ContactInfo?
+
+  manager      User?   @relation("ManagerSubordinates", fields: [managerId], references: [id])
+  managerId    String? @map("manager_id")
+  subordinates User[]  @relation("ManagerSubordinates")
+
+  rolesMemberOf Role[] @relation("RoleManagers")
+  rolesCreated  Role[] @relation("RoleCreated")
+  rolesUpdated  Role[] @relation("RoleUpdated")
+
+  stepCollectionCreated StepCollection[] @relation("StepCollectionCreated")
+  stepCollectionUpdated StepCollection[] @relation("StepCollectionUpdated")
+
+  filesCreated File[] @relation("FilesCreated")
+  filesUpdated File[] @relation("FilesUpdated")
+
+  stepsCreated Step[] @relation("StepsCreated")
+  stepsUpdated Step[] @relation("StepsUpdated")
+
+  role     Role?   @relation(fields: [roleId], references: [id]) // onsave get all the role's contract templates and create a contract for each one
+  roleId   String?
+  jobTitle String  @default("Agent")
+
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+
+  contracts ContractFile[]
+
+  systemRole    SystemRole
+  stepsProgress Json
+
+  // todo: remove these ***********
+  updatedAuthors Author[]
+  updatedBooks   Book[]
+  updatedStores  Store[]
+  // *****************************
+}
+
+model ContactInfo {
+  id        String @id @default(cuid())
+  address   String @default("not set")
+  phone     String @default("not set")
+  telephone String @default("not set")
+
+  personalEmail String @unique
+  businessEmail String @unique
+
+  emergencyContactName    String @default("not set")
+  emergencyContactPhone   String @default("not set")
+  emergencyContactEmail   String @default("not set")
+  emergencyContactAddress String @default("not set")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+}
+
+model Role {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  files       File[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   User?    @relation("RoleCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?    @relation("RoleUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  users User[]
+
+  stepsData Json
+  steps     StepCollection[]
+  managers  User[]           @relation("RoleManagers")
+
+  @@index([createdById, updatedById, id])
+}
+
+model File {
+  id                    String     @id @default(cuid())
+  fileLink              String
+  roles                 Role[]
+  systemRoleRestriction SystemRole @default(user)
+  name                  String
+  description           String
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  createdBy             User?      @relation("FilesCreated", fields: [createdById], references: [id])
+  createdById           String?
+  updatedBy             User?      @relation("FilesUpdated", fields: [updatedById], references: [id])
+  updatedById           String?
+  isArchived            Boolean    @default(false)
+  steps                 Step[]
+
+  @@index([createdById, updatedById, id])
+}
+
+model StepCollection {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  updatedAt   DateTime @updatedAt
+
+  createdBy   User?   @relation("StepCollectionCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?   @relation("StepCollectionUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  isActive   Boolean @default(true)
+  isArchived Boolean @default(false)
+  role       Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId     String
+
+  steps Step[]
+
+  @@index([roleId])
+}
+
+enum StepType {
+  contract
+  file
+  content
+}
+
+model Step {
+  id      String   @id @default(cuid())
+  name    String
+  content String
+  type    StepType @default(content)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdBy   User?   @relation("StepsCreated", fields: [createdById], references: [id])
+  createdById String?
+  updatedBy   User?   @relation("StepsUpdated", fields: [updatedById], references: [id])
+  updatedById String?
+
+  isArchived Boolean @default(false)
+
+  file       File?             @relation(fields: [fileId], references: [id])
+  fileId     String?
+  contract   ContractTemplate? @relation("Step", fields: [contractId], references: [id], onDelete: Cascade)
+  contractId String?
+
+  stepCollection   StepCollection @relation(fields: [stepCollectionId], references: [id], onDelete: Cascade)
+  stepCollectionId String
+
+  @@index([stepCollectionId])
+}
+
+model ContractTemplate {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  description String?
+  year        Int
+  active      Boolean @default(true)
+
+  templateLink String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contracts ContractFile[]
+  steps     Step[]         @relation("Step")
+}
+
+model ContractFile {
+  id String @id @default(cuid())
+
+  template   ContractTemplate @relation(fields: [templateId], references: [id])
+  templateId String
+
+  fileLink String?
+  isSigned Boolean   @default(false)
+  verified Boolean   @default(false)
+  signedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+// todo: remove these *********************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+// ***************************************************************************
+
+model Author {
+  id              String   @id @default(cuid())
+  firstName       String
+  lastName        String
+  bio             String?
+  updatedAt       DateTime @updatedAt
+  updatedByUserId String?
+
+  books     Book[]
+  updatedBy User?  @relation(fields: [updatedByUserId], references: [id])
+
+  @@unique([firstName, lastName])
+}
+
+model Book {
+  id              String   @id @default(cuid())
+  title           String
+  excerpt         String?
+  authorId        String
+  price           Decimal
+  updatedAt       DateTime @updatedAt
+  updatedByUserId String?
+  author          Author   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  stores    Store[]
+  updatedBy User?   @relation(fields: [updatedByUserId], references: [id])
+}
+
+model Store {
+  id              String   @id @default(cuid())
+  name            String
+  updatedAt       DateTime @updatedAt
+  updatedByUserId String?
+
+  books     Book[]
+  updatedBy User?  @relation(fields: [updatedByUserId], references: [id])
+}

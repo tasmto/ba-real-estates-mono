@@ -1,0 +1,14 @@
+{
+    "pageTitle": "Employees",
+    "noEmployees": "No employees found",
+    "noRole": "No role",
+    "hrStatus": "Status",
+    "name": "Name",
+    "role": "Role",
+    "email": "Email",
+    "phone": "Phone Number",
+    "managerName": "Manager",
+    "status": "Status",
+    "active": "Currently Employed",
+    "inactive": "Not Currently Employed"
+}

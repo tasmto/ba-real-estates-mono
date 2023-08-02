@@ -7,19 +7,16 @@ import { PropertyWithLocation } from "typings";
 
 import SiteSearch from "@/components/inputs/search/siteSearch";
 import PropertyCategoryTabs from "@/components/inputs/tabs/PropertyCategoryTabs";
-import {
-  useFetchListings,
-  useFetchPropertyCategories,
-} from "@/hooks/useSanity";
+import { fetchListings, fetchPropertyCategories } from "@/hooks/sanity.helpers";
 import urlFor from "@/lib/sanity.helpers";
 
 type Props = {};
 
 const HomePage = async (props: Props) => {
   const allPropertyCategories =
-    await useFetchPropertyCategories<PropertyCategory>();
+    await fetchPropertyCategories<PropertyCategory>();
 
-  const properties = await useFetchListings<PropertyWithLocation>(
+  const properties = await fetchListings<PropertyWithLocation>(
     undefined,
     `"location": location -> { location, name }`,
     " | order(_createdAt asc)"
@@ -28,7 +25,7 @@ const HomePage = async (props: Props) => {
   return (
     <div>
       <div className="  relative overflow-hidden bg-gradient-to-b from-slate-800/60 via-slate-800/10 to-slate-800/0">
-        <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[#021d2b]">
+        <div className="absolute left-0 top-0 -z-10 h-full w-full bg-[#021d2b]">
           <Image
             width={900}
             height={500}
@@ -41,7 +38,7 @@ const HomePage = async (props: Props) => {
           <div className="absolute inset-y-0 h-full w-full" aria-hidden="true">
             <div className="relative h-full">
               <svg
-                className="absolute left-full -translate-y-3/4 -translate-x-1/4 transform sm:-translate-x-1/2 md:translate-y-[-30%]   lg:-translate-x-3/4"
+                className="absolute left-full -translate-x-1/4 -translate-y-3/4 transform sm:-translate-x-1/2 md:translate-y-[-30%]   lg:-translate-x-3/4"
                 width={404}
                 height={784}
                 fill="none"
@@ -75,7 +72,7 @@ const HomePage = async (props: Props) => {
             </div>
           </div>
 
-          <div className="relative pt-6 pb-16 sm:pb-24">
+          <div className="relative pb-16 pt-6 sm:pb-24">
             <div className="mx-auto mt-14 max-w-7xl px-4 sm:mt-24 sm:px-6">
               <div className="gap-2 text-center md:grid md:grid-cols-2 md:text-start lg:gap-10">
                 <h1 className="font-display text-5xl font-bold tracking-tight text-gray-100 lg:text-[3.5rem]">
@@ -104,7 +101,7 @@ const HomePage = async (props: Props) => {
           </div>
         </div>
         <div className="bg-gray-800">
-          <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
             <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-gray-400">
               Here are some of our partners
             </h2>
@@ -150,7 +147,7 @@ const HomePage = async (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="container grid gap-10   bg-white pt-16 pb-20 lg:pt-24 lg:pb-28">
+      <div className="container grid gap-10   bg-white pb-20 pt-16 lg:pb-28 lg:pt-24">
         <div className="relative text-center">
           <h2 className="mb-5 font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
             Latest property listings
@@ -174,7 +171,7 @@ const HomePage = async (props: Props) => {
           </Link>
         </div>
       </div>
-      <div className="relative  overflow-hidden pt-16 pb-32">
+      <div className="relative  overflow-hidden pb-32 pt-16">
         <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8">
           <div className="mt-12 sm:mt-16 lg:mt-0">
             <div className="-ml-48 pr-4 sm:pr-6 md:-ml-16 lg:relative lg:m-0 lg:h-full lg:px-0">
@@ -185,7 +182,7 @@ const HomePage = async (props: Props) => {
               />
             </div>
           </div>{" "}
-          <div className="mx-auto max-w-xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0">
+          <div className="mx-auto max-w-xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:px-0 lg:py-16">
             <h2 className="mt-6 font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
               Find your next home with us.
             </h2>
@@ -232,9 +229,9 @@ const HomePage = async (props: Props) => {
       </div>
 
       <div className="bg-accent-100/70">
-        <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
-            <div className="pt-10 pb-12 pr-6 sm:pt-16 sm:pr-16 lg:self-center lg:py-16 lg:pr-0 xl:py-20 xl:pr-20">
+            <div className="pb-12 pr-6 pt-10 sm:pr-16 sm:pt-16 lg:self-center lg:py-16 lg:pr-0 xl:py-20 xl:pr-20">
               <h2 className="font-display text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
                 About BA Real Estates
               </h2>

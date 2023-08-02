@@ -1,31 +1,30 @@
-import React from 'react';
-import { Property, PropertyCategory, TeamMember } from 'types';
+import React from "react";
+import { Property, PropertyCategory, TeamMember } from "types";
 
 import {
-    useFetchListings,
-    useFetchPropertyCategories,
-    useFetchTeamMembers,
-} from '@/hooks/useSanity';
+  fetchListings,
+  fetchPropertyCategories,
+  fetchTeamMembers,
+} from "@/hooks/sanity.helpers";
 
-import ListingsDataWrapper from './providers';
+import ListingsDataWrapper from "./providers";
 
 type Props = {};
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-    const propertyCategories =
-        await useFetchPropertyCategories<PropertyCategory>();
-    const allProperties = await useFetchListings<Property>();
-    const allTeamMembers = await useFetchTeamMembers<TeamMember>();
+  const propertyCategories = await fetchPropertyCategories<PropertyCategory>();
+  const allProperties = await fetchListings<Property>();
+  const allTeamMembers = await fetchTeamMembers<TeamMember>();
 
-    return (
-        <ListingsDataWrapper
-            allListings={allProperties}
-            propertyCategories={propertyCategories}
-            allTeamMembers={allTeamMembers}
-        >
-            {children}
-        </ListingsDataWrapper>
-    );
+  return (
+    <ListingsDataWrapper
+      allListings={allProperties}
+      propertyCategories={propertyCategories}
+      allTeamMembers={allTeamMembers}
+    >
+      {children}
+    </ListingsDataWrapper>
+  );
 };
 
 export default RootLayout;
