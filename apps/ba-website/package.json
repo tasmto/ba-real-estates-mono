@@ -72,7 +72,7 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "postcss": "^8.4.20",
+    "postcss": "^8.4.31",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.2",
     "sanity-codegen": "^0.9.8",
