@@ -19,6 +19,8 @@ const nextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+    loader: "custom",
+    loaderFile: "./src/lib/sanity.image-loader.js",
   },
   experimental: {
     appDir: true,
