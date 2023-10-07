@@ -1,11 +1,12 @@
 "use client";
 
-import React, { lazy, useMemo, useState, useTransition } from "react";
+import React, { useMemo, useState, useTransition } from "react";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { atom, useAtom } from "jotai";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Area, PropertyCategory } from "types";
 import { PropertyWithLocation } from "typings";
@@ -20,13 +21,17 @@ import {
   getCategoriesFromUrl,
   setFilterParams,
 } from "@/components/listings/urlparams.helper";
+import { fetchListings } from "@/hooks/sanity.helpers";
 import useDebounce from "@/hooks/useDebounce";
 import useEffectOnce from "@/hooks/useEffectOnce";
-import { fetchListings } from "@/hooks/sanity.helpers";
 import useUpdateEffect from "@/hooks/useUpdateEffect";
 
-const ClientOnlyCollectionsMap = lazy(
-  () => import("@/components/inputs/listings/map/collection-page/ClientOnlyMap")
+const ClientOnlyCollectionsMap = dynamic(
+  () =>
+    import("@/components/inputs/listings/map/collection-page/ClientOnlyMap"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
 );
 
 type Props = {

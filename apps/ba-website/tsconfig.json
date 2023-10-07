@@ -41,7 +41,8 @@
     "src/**/*.tsx",
     "src/app/**/*.ts",
     "src/app/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/lib/sanity.image-loader.js"
   ],
   "exclude": ["node_modules"]
 }
