@@ -36,7 +36,7 @@
     "react-tailwindcss-datepicker": "^1.4.2",
     "superjson": "1.9.1",
     "ui": "*",
-    "zod": "^3.20.6"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@prisma/nextjs-monorepo-workaround-plugin": "^4.11.0",
